@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FRESHEERS' HIEST 2026 — Stage 3: Final Payload</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Orbitron:wght@400;700;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+  <!-- Matrix rain canvas -->
+  <canvas id="matrix-bg"></canvas>
+
+  <!-- Kali Linux Dragon Watermark -->
+  <div class="kali-watermark" aria-hidden="true"></div>
+
+  <!-- Floating Hacker Text Background -->
+  <div class="hacker-bg" id="hacker-bg" aria-hidden="true"></div>
+
+  <div class="container" id="main-container" style="opacity: 1;">
+    <!-- Header -->
+    <header class="header">
+      <div class="header__lock">🔓</div>
+      <h1 class="header__title">STAGE 3 // <span class="glow-green">FINAL PAYLOAD</span></h1>
+      <p class="header__subtitle" style="color: var(--green); text-shadow: var(--glow-green);">
+        <span class="blink">█</span> ACCESS LEVEL: ROOT // CLEARANCE CONFIRMED
+      </p>
+    </header>
+
+    <!-- Main Card -->
+    <main class="terminal-card success-card">
+      <div class="terminal-card__bar">
+        <span class="dot dot--red"></span>
+        <span class="dot dot--yellow"></span>
+        <span class="dot dot--green"></span>
+        <span class="terminal-card__bar-text">root@cyber-ops:~/final_payload.sh</span>
+      </div>
+
+      <div class="system-bar">
+        <span>STAGE <span class="sys-value">3 OF 3</span></span>
+        <span>AUTH <span class="sys-value">SOLVED</span></span>
+        <span>STATUS <span style="color: var(--green);">UNLOCKED</span></span>
+        <span>PAYLOAD <span class="sys-value">READY</span></span>
+      </div>
+
+      <section class="success-content">
+        <div class="success-icon">🎯</div>
+        <h2 class="success-title glow-green">CLEARANCE CONFIRMED</h2>
+        <p class="success-subtitle" style="color: red; font-size: 1.25rem; font-weight: bold">BetaLabs Secret Vault</p>
+
+        <div class="divider"></div>
+
+        <!-- Download Section -->
+        <div class="download-section">
+          <p class="download-label" style="color: white">&gt; Classified Mission Archive:</p>
+          <p class="download-filename">📁 Vault_File.pdf</p>
+          <a href="/download" id="download-btn" class="download-btn">
+            [ ⬇ EXTRACT SECRET PAYLOAD ]
+          </a>
+        </div>
+
+        <div class="divider" style="margin: 2rem 0;"></div>
+
+        <!-- Secret Verification Section -->
+        <div class="challenge">
+          <h3 class="challenge__title" style="font-size: 1.1rem; justify-content: center;">
+            <span class="icon-shield">🔑</span> VERIFY FINAL SECRET CODE
+          </h3>
+
+          <form id="final-code-form" class="challenge__form" autocomplete="off" onsubmit="event.preventDefault(); verifyFinalCode();">
+            <div class="input-wrapper">
+              <label for="secret-code-input" class="sr-only">Secret Code</label>
+              <input
+                type="text"
+                id="secret-code-input"
+                class="challenge__input"
+                placeholder="enter secret code..."
+                spellcheck="false"
+                autocomplete="off"
+                required
+              >
+            </div>
+
+            <button type="submit" id="verify-secret-btn" class="challenge__submit">
+              <span>[ VERIFY CODE ]</span>
+            </button>
+          </form>
+
+          <div id="final-result-area" class="result" style="display: none; margin-top: 1rem;">
+            <p id="final-result-message"></p>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <p>&gt; <span class="glow-cyan">Cyber Cell</span> // Freshers' Hiest 2026</p>
+      <p class="footer__hint">&gt; System breach confirmed upon valid authorization key.</p>
+    </footer>
+  </div>
+
+  <!-- Hacked Modal -->
+  <div class="modal-overlay" id="hacked-modal">
+    <div class="hacked-modal-box">
+      <div style="font-size: 3rem; margin-bottom: 0.5rem;">💻 ⚡ 🏴‍☠️</div>
+      <h2 class="hacked-modal-title">Hacked</h2>
+      <p class="hacked-modal-subtitle">&gt; SYSTEM COMPROMISED // ACCESS LEVEL: MASTER</p>
+      <div class="divider" style="margin: 1.5rem 0;"></div>
+      <p style="color: var(--text-bright); margin-bottom: 2rem; font-size: 1rem;">
+        Congratulations Operative! You have successfully solved the Freshers' Heist 2026 and cracked the final secret code.
+      </p>
+      <button class="hacked-close-btn" onclick="closeHackedModal()">[ DISMISS ALERT ]</button>
+    </div>
+  </div>
+
+  <script>
+    function verifyFinalCode() {
+      const input = document.getElementById('secret-code-input');
+      const val = input.value.trim();
+      const resultArea = document.getElementById('final-result-area');
+      const resultMsg = document.getElementById('final-result-message');
+
+      // Exact hardcoded string verification
+      if (val === 'VmljdG9yeSA=') {
+        resultArea.style.display = 'block';
+        resultArea.className = 'result result--success';
+        resultMsg.textContent = 'ACCESS GRANTED — AUTHORIZATION CONFIRMED: Hacked';
+
+        // Trigger modal
+        document.getElementById('hacked-modal').classList.add('active');
+
+        // Also trigger browser alert as requested
+        setTimeout(() => {
+          alert('Hacked');
+        }, 100);
+      } else {
+        resultArea.style.display = 'block';
+        resultArea.className = 'result result--error';
+        resultMsg.textContent = 'ACCESS DENIED — Invalid authorization code.';
+      }
+    }
+
+    function closeHackedModal() {
+      document.getElementById('hacked-modal').classList.remove('active');
+    }
+
+    // Matrix background
+    const canvas = document.getElementById('matrix-bg');
+    if (canvas) {
+      const ctx = canvas.getContext('2d');
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+      const chars = '01010101HACKEDVICTORYPAYLOAD01';
+      const fontSize = 14;
+      const columns = canvas.width / fontSize;
+      const drops = Array(Math.floor(columns)).fill(1);
+
+      function draw() {
+        ctx.fillStyle = 'rgba(0, 0, 0, 0.05)';
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+        ctx.fillStyle = '#00ff41';
+        ctx.font = fontSize + 'px monospace';
+        for (let i = 0; i < drops.length; i++) {
+          const text = chars.charAt(Math.floor(Math.random() * chars.length));
+          ctx.fillText(text, i * fontSize, drops[i] * fontSize);
+          if (drops[i] * fontSize > canvas.height && Math.random() > 0.975) {
+            drops[i] = 0;
+          }
+          drops[i]++;
+        }
+      }
+      setInterval(draw, 40);
+    }
+  </script>
+</body>
+</html>

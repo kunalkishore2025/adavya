@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 260" fill="none">
+  <!-- Hooded hacker silhouette -->
+  <defs>
+    <radialGradient id="hg" cx="50%" cy="40%" r="55%">
+      <stop offset="0%" stop-color="#ff2244" stop-opacity="0.15"/>
+      <stop offset="100%" stop-color="#000" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  <!-- Hood outer -->
+  <path d="M100 8 C45 8 20 55 20 100 C20 130 30 145 40 158 L40 240 C40 252 50 260 60 260 L140 260 C150 260 160 252 160 240 L160 158 C170 145 180 130 180 100 C180 55 155 8 100 8Z" fill="#0a0a0a" stroke="#1a1a1a" stroke-width="1.5"/>
+  <!-- Hood inner shadow -->
+  <path d="M100 20 C55 20 35 60 35 95 C35 120 42 135 50 148 L50 200 L150 200 L150 148 C158 135 165 120 165 95 C165 60 145 20 100 20Z" fill="#050505"/>
+  <!-- Face void -->
+  <ellipse cx="100" cy="105" rx="45" ry="50" fill="#020202"/>
+  <!-- Eyes - menacing glow -->
+  <ellipse cx="82" cy="100" rx="8" ry="4" fill="#ff2244" opacity="0.8">
+    <animate attributeName="opacity" values="0.8;0.3;0.8" dur="3s" repeatCount="indefinite"/>
+  </ellipse>
+  <ellipse cx="118" cy="100" rx="8" ry="4" fill="#ff2244" opacity="0.8">
+    <animate attributeName="opacity" values="0.8;0.3;0.8" dur="3s" repeatCount="indefinite"/>
+  </ellipse>
+  <!-- Eye glow halos -->
+  <ellipse cx="82" cy="100" rx="12" ry="7" fill="#ff2244" opacity="0.15"/>
+  <ellipse cx="118" cy="100" rx="12" ry="7" fill="#ff2244" opacity="0.15"/>
+  <!-- Shoulders -->
+  <path d="M40 240 C40 245 20 250 5 258 L5 260 L195 260 L195 258 C180 250 160 245 160 240" fill="#0a0a0a" stroke="#1a1a1a" stroke-width="1"/>
+  <!-- Subtle hood edge highlight -->
+  <path d="M100 8 C45 8 20 55 20 100" stroke="#ff2244" stroke-width="0.5" opacity="0.2" fill="none"/>
+  <path d="M100 8 C155 8 180 55 180 100" stroke="#ff2244" stroke-width="0.5" opacity="0.2" fill="none"/>
+  <!-- Background glow -->
+  <circle cx="100" cy="120" r="90" fill="url(#hg)"/>
+</svg>

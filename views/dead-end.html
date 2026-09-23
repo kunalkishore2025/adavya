@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FRESHEER'S HIEST 2026 — Dead End</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Orbitron:wght@400;700;900&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+  <!-- Matrix rain canvas -->
+  <canvas id="matrix-bg"></canvas>
+
+  <!-- Kali Linux Dragon Watermark -->
+  <div class="kali-watermark" aria-hidden="true"></div>
+
+  <div class="container" id="main-container" style="opacity: 1;">
+    <header class="header">
+      <div class="header__lock" style="border-color: var(--red);">🛑</div>
+      <h1 class="header__title" style="color: var(--red); text-shadow: var(--glow-red);">
+        HONEYPOT TRAP <span style="color: var(--text-bright);">DETECTED</span>
+      </h1>
+      <p class="header__subtitle" style="color: var(--red);">
+        <span class="blink">█</span> CONNECTION ROUTED TO INVALID ENDPOINT
+      </p>
+    </header>
+
+    <main class="terminal-card dead-end-card">
+      <div class="terminal-card__bar" style="border-bottom-color: var(--red);">
+        <span class="dot dot--red"></span>
+        <span class="dot dot--yellow"></span>
+        <span class="dot dot--green"></span>
+        <span class="terminal-card__bar-text" style="color: var(--red);">error@cyber-ops:~/dead_end.log</span>
+      </div>
+
+      <div style="padding: 2.5rem 1rem;">
+        <h2 class="dead-end-title">Oops You hit a dead end</h2>
+        <p class="dead-end-desc">
+          You followed a malformed or corrupt decoy URL. The network security monitor has severed your uplink.
+        </p>
+
+        <div class="divider" style="margin: 2rem 0;"></div>
+
+        <a href="/" class="challenge__submit" style="display: inline-block; text-decoration: none; max-width: 380px; margin: 0 auto;">
+          <span>[ ↩ RETURN TO ACCESS TERMINAL ]</span>
+        </a>
+      </div>
+    </main>
+
+    <footer class="footer">
+      <p>&gt; <span class="glow-cyan">Cyber Cell</span> // Freshers' Hiest 2026</p>
+      <p class="footer__hint">&gt; Inspect URL syntax carefully before executing connection.</p>
+    </footer>
+  </div>
+
+  <script>
+    // Matrix rain background
+    const canvas = document.getElementById('matrix-bg');
+    if (canvas) {
+      const ctx = canvas.getContext('2d');
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+      const chars = '01010101XYZDEADENDERROR404ABCDF';
+      const fontSize = 14;
+      const columns = canvas.width / fontSize;
+      const drops = Array(Math.floor(columns)).fill(1);
+
+      function draw() {
+        ctx.fillStyle = 'rgba(0, 0, 0, 0.05)';
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+        ctx.fillStyle = '#ff2244';
+        ctx.font = fontSize + 'px monospace';
+        for (let i = 0; i < drops.length; i++) {
+          const text = chars.charAt(Math.floor(Math.random() * chars.length));
+          ctx.fillText(text, i * fontSize, drops[i] * fontSize);
+          if (drops[i] * fontSize > canvas.height && Math.random() > 0.975) {
+            drops[i] = 0;
+          }
+          drops[i]++;
+        }
+      }
+      setInterval(draw, 40);
+    }
+  </script>
+</body>
+</html>

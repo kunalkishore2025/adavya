@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FRESHEER'S HIEST 2026 — Stage 2: Rail Fence Cipher</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Orbitron:wght@400;700;900&family=JetBrains+Mono:wght@400;700&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="/style.css">
+</head>
+
+<body>
+  <!-- Matrix rain canvas -->
+  <canvas id="matrix-bg"></canvas>
+
+  <div class="container visible" id="main-container">
+    <!-- Header -->
+    <header class="header">
+      <div class="header__lock">🛡️</div>
+      <h1 class="header__title">STAGE 2 // <span class="glow-green">CIPHER CHALLENGE</span></h1>
+    </header>
+
+    <!-- Terminal Card -->
+    <main class="terminal-card">
+      <div class="terminal-card__bar">
+        <span class="dot dot--red"></span>
+        <span class="dot dot--yellow"></span>
+        <span class="dot dot--green"></span>
+        <span class="terminal-card__bar-text">root@cyber-ops:~/rail_fence_decrypt.sh</span>
+      </div>
+
+      <!-- System Info Bar -->
+      <div class="system-bar">
+        <span>STATUS <span class="sys-value">STAGE 2 ACTIVE</span></span>
+        <span>ACCESS <span class="sys-value">AUTHENTICATED</span></span>
+      </div>
+
+      <!-- Intercepted Plaintext Section -->
+      <section class="mission">
+        <p class="mission__prefix">&gt; You are trapped deep inside the compromised mainframe of BetaLabs, you need the
+          help of your team to escape.
+          You are not alone on this network—a ruthless syndicate known as 'The Listener' has infected the wire and is
+          actively monitoring your every keystroke.<br><br>
+          Your allies are standing by in the shadows, but they desperately need the secret access code to retrieve a
+          classified file locked inside the digital vault of BetaLabs which has the next leed for your escape.
+          If you transmit the password in plaintext, The Listener will instantly intercept it, steal the file, and erase
+          your only exit ...<br><br>
+        <p style="font-size: 2cap">Listen closely to the rhythm of the lines—they hold the pattern to build your cipher.
+        </p>
+        <p class="mission__prefix">&gt;
+          Three level lines run left to right,<br>
+          To hide your words from watchful sight.<br>
+          Step down each rail along a slant,<br>
+          Then bounce back up the rising ramp.<br>
+          No upright drops, no fallen wall—<br>
+          Just diagonal peaks that rise and fall.<br>
+          When all the text has walked the trail,<br>
+          Read left-to-right on every rail:<br>
+          The high track first, the middle lane,<br>
+          The bottom last to lock the train.</p>
+        </p>
+        <p style="font-size: 2cap;">Secret Message:</p>
+        <div class="mission__message" style="border-left-color: var(--cyan);">
+          <p id="plaintext-display" class="typewriter"
+            style="color: var(--green); font-size: 1rem; font-weight: bold; letter-spacing: 0.1em;">
+            [ LOADING INTERCEPTED TRANSMISSION... ]
+          </p>
+        </div>
+      </section>
+
+      <div class="divider"></div>
+
+      <!-- Challenge Input Form -->
+      <section class="challenge">
+        <h2 class="challenge__title">
+          <span class="icon-shield">🔐</span> SEND ENCRYPTED PASSWORD:
+        </h2>
+        <form id="cipher-form" class="challenge__form" autocomplete="off">
+          <div class="input-wrapper">
+            <label for="cipher-input" class="sr-only">Enter cipher solution</label>
+            <input type="text" id="cipher-input" name="answer" class="challenge__input"
+              placeholder="enter rail fence cipher text..." spellcheck="false" autocomplete="off" required>
+          </div>
+
+          <button type="submit" id="submit-btn" class="challenge__submit">
+            <span class="btn-text">[ EXECUTE VERIFICATION ]</span>
+            <span class="btn-loading" style="display:none;">[ ██████ VERIFYING... ]</span>
+          </button>
+        </form>
+
+        <!-- Result message area -->
+        <div id="result-area" class="result" style="display:none;">
+          <p id="result-message"></p>
+        </div>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <p>&gt; <span class="glow-cyan">Cyber Cell</span> // Freshers' Hiest 2026</p>
+      <p class="footer__hint">&gt; Strict verification against server records.</p>
+    </footer>
+  </div>
+
+  <script>
+    // Load question on page start with smooth high-speed decode typewriter
+    async function loadChallenge() {
+      const displayEl = document.getElementById('plaintext-display');
+      try {
+        const res = await fetch('/api/challenge-question');
+        const data = await res.json();
+        if (data.plaintext) {
+          displayEl.textContent = '';
+          displayEl.classList.add('typewriter');
+          let i = 0;
+          const text = data.plaintext;
+          function typeChar() {
+            if (i < text.length) {
+              displayEl.textContent += text[i];
+              i++;
+              setTimeout(typeChar, 18);
+            } else {
+              displayEl.classList.add('done');
+            }
+          }
+          typeChar();
+        } else {
+          displayEl.textContent = 'ERROR LOADING PLAINTEXT';
+        }
+      } catch (err) {
+        displayEl.textContent = 'NETWORK CONNECTION FAILED';
+      }
+    }
+
+    // Handle submission with smooth transitions
+    const form = document.getElementById('cipher-form');
+    const input = document.getElementById('cipher-input');
+    const submitBtn = document.getElementById('submit-btn');
+    const btnText = submitBtn.querySelector('.btn-text');
+    const btnLoading = submitBtn.querySelector('.btn-loading');
+    const resultArea = document.getElementById('result-area');
+    const resultMsg = document.getElementById('result-message');
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const answer = input.value;
+      if (!answer) return;
+
+      btnText.style.display = 'none';
+      btnLoading.style.display = 'inline-block';
+      submitBtn.disabled = true;
+
+      try {
+        const response = await fetch('/api/verify-cipher', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ answer })
+        });
+
+        const result = await response.json();
+
+        resultArea.style.display = 'block';
+        if (result.success) {
+          resultArea.className = 'result result--success';
+          resultMsg.textContent = 'ACCESS GRANTED — Cipher verified. Redirecting to Final Stage...';
+          setTimeout(() => {
+            window.location.href = result.redirect || '/payload';
+          }, 1000);
+        } else {
+          resultArea.className = 'result result--error';
+          resultMsg.textContent = result.message || 'ACCESS DENIED — Incorrect cipher.';
+          btnText.style.display = 'inline-block';
+          btnLoading.style.display = 'none';
+          submitBtn.disabled = false;
+        }
+      } catch (err) {
+        resultArea.style.display = 'block';
+        resultArea.className = 'result result--error';
+        resultMsg.textContent = 'SERVER COMMUNICATION ERROR. Try again.';
+        btnText.style.display = 'inline-block';
+        btnLoading.style.display = 'none';
+        submitBtn.disabled = false;
+      }
+    });
+
+    // Matrix background — Silky smooth 60fps/120fps VSync synced
+    const canvas = document.getElementById('matrix-bg');
+    if (canvas) {
+      const ctx = canvas.getContext('2d');
+      function resizeCanvas() {
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+      }
+      resizeCanvas();
+      window.addEventListener('resize', resizeCanvas);
+
+      const chars = '01010101ABCDEF0123456789RAILFENCE';
+      const fontSize = 14;
+      const colCount = Math.floor(canvas.width / fontSize);
+      const drops = [];
+      const speeds = [];
+      const alphas = [];
+
+      for (let i = 0; i < colCount; i++) {
+        drops.push(Math.random() * (canvas.height / fontSize));
+        speeds.push(0.35 + Math.random() * 0.7);
+        alphas.push(0.35 + Math.random() * 0.45);
+      }
+
+      function draw() {
+        requestAnimationFrame(draw);
+
+        ctx.fillStyle = 'rgba(0, 0, 0, 0.05)';
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+        ctx.font = fontSize + 'px monospace';
+
+        for (let i = 0; i < drops.length; i++) {
+          const text = chars.charAt(Math.floor(Math.random() * chars.length));
+          const isBright = Math.random() > 0.96;
+
+          if (isBright) {
+            ctx.fillStyle = '#ffffff';
+          } else {
+            ctx.fillStyle = `rgba(0, 255, 65, ${alphas[i]})`;
+          }
+
+          ctx.fillText(text, i * fontSize, drops[i] * fontSize);
+
+          if (drops[i] * fontSize > canvas.height && Math.random() > 0.975) {
+            drops[i] = 0;
+            speeds[i] = 0.35 + Math.random() * 0.7;
+          }
+          drops[i] += speeds[i];
+        }
+      }
+      requestAnimationFrame(draw);
+    }
+
+    loadChallenge();
+  </script>
+</body>
+
+</html>

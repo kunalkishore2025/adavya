@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Cyber Freshers 2026 — Challenge completed. Access granted.">
+  <title>ACCESS GRANTED — FRESHEERS' HIEST 2026</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Orbitron:wght@400;700;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+  <!-- Matrix rain canvas -->
+  <canvas id="matrix-bg"></canvas>
+
+  <!-- Kali Linux Dragon Watermark -->
+  <div class="kali-watermark" aria-hidden="true"></div>
+
+  <!-- Floating Hacker Text Background -->
+  <div class="hacker-bg" id="hacker-bg" aria-hidden="true"></div>
+
+  <div class="container" id="main-container" style="opacity:1;">
+    <!-- Header -->
+    <header class="header">
+      <pre class="header__ascii" aria-hidden="true">
+ ██████╗██╗   ██╗██████╗ ███████╗██████╗ 
+██╔════╝╚██╗ ██╔╝██╔══██╗██╔════╝██╔══██╗
+██║      ╚████╔╝ ██████╔╝█████╗  ██████╔╝
+██║       ╚██╔╝  ██╔══██╗██╔══╝  ██╔══██╗
+╚██████╗   ██║   ██████╔╝███████╗██║  ██║
+ ╚═════╝   ╚═╝   ╚═════╝ ╚══════╝╚═╝  ╚═╝</pre>
+      <div class="header__lock">🔓</div>
+      <h1 class="header__title">Freshers' Hiest<span class="glow-green">2026</span></h1>
+      <p class="header__subtitle" style="color: var(--green); text-shadow: var(--glow-green);">
+        <span class="blink">█</span> SECURITY CLEARANCE // GRANTED
+      </p>
+    </header>
+
+    <!-- Success Card -->
+    <main class="terminal-card success-card">
+      <!-- Status bar -->
+      <div class="terminal-card__bar">
+        <span class="dot dot--red"></span>
+        <span class="dot dot--yellow"></span>
+        <span class="dot dot--green"></span>
+        <span class="terminal-card__bar-text">root@cyber-ops:~/access_granted.sh</span>
+      </div>
+
+      <!-- System Info Bar -->
+      <div class="system-bar">
+        <span>SYS <span class="sys-value">CLEARED</span></span>
+        <span>AUTH <span class="sys-value">VERIFIED</span></span>
+        <span>SEC <span style="color: var(--green);">PASSED</span></span>
+        <span>RANK <span class="sys-value">FRESHER-ALPHA</span></span>
+      </div>
+
+      <!-- Success message -->
+      <section class="success-content">
+        <div class="success-icon">🏆</div>
+        <h2 class="success-title glow-green">ACCESS GRANTED</h2>
+        <p class="success-subtitle">CIPHER CHALLENGE — COMPLETED</p>
+
+        <div class="divider"></div>
+
+        <div class="success-details">
+          <p class="success-line">&gt; status: <span class="glow-green">██ VERIFIED ██</span></p>
+          <p class="success-line">&gt; clearance_level: <span class="glow-cyan">LEVEL 1 — OPERATIVE</span></p>
+          <p class="success-line">&gt; codename: <span class="glow-cyan">FRESHER-ALPHA</span></p>
+          <p class="success-line">&gt; encryption: <span class="glow-green">RAIL_FENCE_3</span></p>
+          <p class="success-line">&gt; timestamp: <span class="glow-cyan" id="success-timestamp"></span></p>
+        </div>
+
+        <div class="divider"></div>
+
+        <!-- Download section -->
+        <div class="download-section">
+          <p class="download-label">&gt; Classified file decrypted and unlocked:</p>
+          <p class="download-filename">📁 Freshers' Hiest</p>
+          <a href="/download" id="download-btn" class="download-btn">
+            [ ⬇ EXTRACT FILE ]
+          </a>
+        </div>
+
+        <div class="divider"></div>
+
+        <p class="success-footer-text">
+          &gt; Report to the Freshers Party venue for your next mission briefing, operative.
+        </p>
+      </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+      <p>&gt; <span class="glow-cyan">Cyber Cell</span> // Freshers' Hiest 2026</p>
+      <p class="footer__hint">"The best encryption is the one you never have to break."</p>
+    </footer>
+  </div>
+
+  <!-- Minimal JS for matrix background + timestamp on success page -->
+  <script>
+    (function() {
+      // ─── Matrix rain background ─────────────────
+      const canvas = document.getElementById('matrix-bg');
+      if (!canvas) return;
+      const ctx = canvas.getContext('2d');
+
+      function resize() {
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+      }
+      resize();
+      window.addEventListener('resize', resize);
+
+      const numbers = '0123456789';
+      const extras = 'アイウエオカキクケコ<>{}[]=/\\█▓▒░ABCDEF';
+      const allChars = numbers.repeat(8) + extras;
+      const fontSize = 10;
+      let columns = Math.floor(canvas.width / fontSize);
+      let drops = [];
+      let speeds = [];
+
+      function initDrops() {
+        columns = Math.floor(canvas.width / fontSize);
+        drops = [];
+        speeds = [];
+        for (let i = 0; i < columns; i++) {
+          drops.push(Math.random() * canvas.height / fontSize);
+          speeds.push(0.3 + Math.random() * 2.0);
+        }
+      }
+      initDrops();
+      window.addEventListener('resize', initDrops);
+
+      function draw() {
+        ctx.fillStyle = 'rgba(0, 0, 0, 0.04)';
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+        ctx.font = fontSize + 'px Share Tech Mono, monospace';
+
+        for (let i = 0; i < drops.length; i++) {
+          const char = allChars[Math.floor(Math.random() * allChars.length)];
+          const isHighlight = Math.random() > 0.96;
+          const isSuperBright = Math.random() > 0.995;
+
+          if (isSuperBright) {
+            ctx.fillStyle = 'rgba(200, 255, 200, 0.9)';
+            ctx.shadowColor = 'rgba(0, 255, 65, 1)';
+            ctx.shadowBlur = 15;
+          } else if (isHighlight) {
+            ctx.fillStyle = `rgba(0, 255, 65, ${0.4 + Math.random() * 0.5})`;
+            ctx.shadowColor = 'rgba(0, 255, 65, 0.6)';
+            ctx.shadowBlur = 8;
+          } else {
+            ctx.fillStyle = `rgba(0, 255, 65, ${0.03 + Math.random() * 0.1})`;
+            ctx.shadowBlur = 0;
+          }
+
+          ctx.fillText(char, i * fontSize, drops[i] * fontSize);
+          ctx.shadowBlur = 0;
+
+          if (drops[i] * fontSize > canvas.height && Math.random() > 0.96) {
+            drops[i] = 0;
+            speeds[i] = 0.3 + Math.random() * 2.0;
+          }
+          drops[i] += speeds[i];
+        }
+      }
+
+      setInterval(draw, 33);
+
+      // ─── Timestamp ───────────────────────────────
+      const tsEl = document.getElementById('success-timestamp');
+      if (tsEl) {
+        const now = new Date();
+        tsEl.textContent = now.toISOString().replace('T', ' // ').replace(/\.\d+Z$/, ' UTC');
+      }
+
+      // ─── Floating Hacker Background ─────────────
+      const hackerBg = document.getElementById('hacker-bg');
+      if (hackerBg) {
+        const lines = [
+          '[+] ACCESS GRANTED — session authenticated',
+          'meterpreter > sysinfo', 'meterpreter > hashdump',
+          '[*] Meterpreter session 1 opened',
+          'cat /etc/shadow', 'whoami → root',
+          '0x00: 4D 5A 90 00 03 00 00 00 FF FF 00 00',
+          '[██████████] 100% — Decryption complete',
+          '[*] Covering tracks... clearing logs',
+          'history -c && history -w',
+          'echo "" > /var/log/auth.log',
+          '[+] Privilege escalation successful',
+          'nmap -sS -sV 192.168.1.0/24',
+          'PORT   STATE SERVICE VERSION',
+          '22/tcp open  ssh     OpenSSH 8.9p1',
+        ];
+        const cls = ['', 'bright', 'cyan'];
+        function spawn() {
+          const el = document.createElement('div');
+          el.className = 'hacker-text ' + cls[Math.floor(Math.random()*cls.length)];
+          const n = 1 + Math.floor(Math.random()*3);
+          const s = Math.floor(Math.random()*lines.length);
+          let t = '';
+          for (let i=0;i<n;i++) { t += lines[(s+i)%lines.length]; if(i<n-1) t+='\n'; }
+          el.textContent = t;
+          el.style.whiteSpace = 'pre';
+          if (Math.random() > 0.7) {
+            el.classList.add('horizontal');
+            el.style.top = (5+Math.random()*85)+'vh';
+          } else {
+            el.style.left = (2+Math.random()*90)+'vw';
+          }
+          el.style.animationDuration = (20+Math.random()*40)+'s';
+          el.style.fontSize = (0.5+Math.random()*0.3)+'rem';
+          hackerBg.appendChild(el);
+          el.addEventListener('animationend', () => el.remove());
+        }
+        for (let i=0;i<10;i++) setTimeout(spawn, i*800);
+        setInterval(spawn, 2500);
+      }
+    })();
+  </script>
+</body>
+</html>
